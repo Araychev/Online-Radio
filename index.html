@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Интернет Радио</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+  </head>
+  <body>
+    <div class="radio-container">
+      <div class="radio-header">Интернет Радио</div>
+      <input
+        type="text"
+        id="searchInput"
+        onkeyup="filterStations()"
+        placeholder="Търсене на радио..."
+      />
+      <ul class="station-list" id="stationList">
+        <li
+          onclick="playStation('https://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ENERGYAAC_L.aac?dist=PREDAVATEL')"
+        >
+          Радио Energy
+          <span class="tooltip">Описание на Радио Energy</span>
+        </li>
+        <li onclick="playStation('http://193.108.24.21:8000/fresh?file=.mp3')">
+          Радио Fresh
+          <span class="tooltip">Описание на Радио Fresh</span>
+        </li>
+        <li
+          onclick="playStation('http://193.108.24.6:8000/fmplusnew?file=.mp3')"
+        >
+          Радио Fm+
+          <span class="tooltip">Описание на Радио Fm+</span>
+        </li>
+        <li onclick="playStation('http://193.108.24.6:8000/zrock')">
+          Радио Z-rock
+          <span class="tooltip">Описание на Радио Z-rock</span>
+        </li>
+        <li onclick="playStation('http://193.108.24.6:8000/melody?file=.mp3')">
+          Радио Melody
+          <span class="tooltip">Описание на Радио Melody</span>
+        </li>
+        <li onclick="playStation('https://a2.vizitec.com:8001/classica.mp3')">
+          Радио Класика
+          <span class="tooltip">Описание на Радио Класика</span>
+        </li>
+
+        <!-- Добавете допълнителни радио станции тук -->
+      </ul>
+      <audio id="radioPlayer" controls>
+        Вашият браузър не поддържа аудио елемента.
+      </audio>
+    </div>
+
+    <script>
+      function playStation(streamUrl) {
+        var player = document.getElementById("radioPlayer");
+        player.src = streamUrl;
+        player.play();
+      }
+
+      function filterStations() {
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toUpperCase();
+        var ul = document.getElementById("stationList");
+        var li = ul.getElementsByTagName("li");
+
+        for (var i = 0; i < li.length; i++) {
+          var span = li[i].getElementsByTagName("span")[0];
+          var txtValue = span.textContent || span.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
